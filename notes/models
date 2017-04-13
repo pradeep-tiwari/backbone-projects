@@ -1,0 +1,154 @@
+--> An object defined by extending Backbone.Model, inherits many predefined APIs.
+
+--> You define a model blueprint by extending Backbone.Model object:
+
+    var ExampleModel = Backbone.Model.extend();
+    
+--> When defining the model, you may add your own functionalities:
+
+    var ExampleModel = Backbone.Model.extend({
+        names: ['Bob', 'Jim', 'Tom'],
+        print: function() {
+            console.log(this.names);
+        }
+    });
+    
+    var myModel = new ExampleModel();
+    myModel.print();
+    
+--> When instantiating a model, you may pass a JSON object that becomes the model's
+    attributes:
+    
+    var myModel = new ExampleModel({
+        modelHash: '#213#22',
+        modelName: 'myModel'
+    });
+    
+    myModel.print();
+    myModel.attributes.modelHash;
+    
+--> You may define a model with default attributes:
+
+    var ExampleModel = Backbone.Model.extend({
+        defaults: {
+            modelHash: '###'
+        }
+    });
+    
+    var myModel = new ExampleModel({
+        modelHash: '#213#22',
+        modelName: 'myModel'
+    });
+    
+    myModel.attributes.modelHash; // #213#22
+    
+--> Alternatively, you may use get() and set() APIs to work with attributes:
+
+    myModel.attributes.modelType = 'Backbone model';
+    myModel.set('modelLifeTime', 21000);
+    
+    myModel.attributes.modelType; // 'Backbone model'
+    myModel.get('modelLifeTime'); // 21000
+    
+--> When defining a model, we can define initialize() method that gets called when
+    the model instance is created. Note that it accepts no argument:
+    
+    var ExampleModel = Backbone.Model.extend({
+        initialize: function() {
+            console.log('yep, I got called!');
+        }
+    });
+    
+    new ExampleModel();
+    
+--> We can write custom validations on defined model by overriding validate() method:
+
+    var ExampleModel = Backbone.Model.extend({
+        defaults: {
+            fname: '',
+            age: 21
+        },
+        validate: function(attrs) {
+            if(attrs.fname === '') {
+                return 'First name required.';
+            }
+            
+            if(attrs.age < 21) {
+                return 'Your age disqualifies.';
+            }
+        }
+    });
+    
+--> The isValid() method gives a boolean validation status and the validationError
+    property holds the value returned by validate() method during last failed
+    validation :
+
+    var myModel = new ExampleModel({
+        fname: 'Rambo',
+        age: 20
+    });
+    
+    if(!myModel.isValid()) {
+        console.log('Model invalid');
+        console.log(myModel.validationError);
+    }
+    
+--> There is an elegant way to respond to failed validation, via "invalid" event.
+    This event is triggered if the validation fails and is handle by calling the
+    model.on() method:
+    
+    var myModel = new ExampleModel();
+    
+    myModel.on('invalid', function() {
+        console.log('Model invalid: ' + myModel.validationError);
+    });
+    
+    myModel.set('fname', '', {validate: true});
+    
+--> Note that the 'invalid' event callback accepts two arguments:
+
+     myModel.on('invalid', function(model, error) {
+        console.log('Model invalid: ' + error);
+    });
+    
+    myModel.set('fname', '', {validate: true});
+    
+--> We can bind events on models while defining them. It should be done in the
+    initialize() method:
+    
+    var ExampleModel = Backbone.Model.extend({
+        defaults: {
+            age: 21,
+            salary: 25000
+        },
+        validate: function(attrs) {
+            if(attrs.age < 21 || attrs.age > 55) {
+                return 'Age disqualified.';
+            }
+            
+            if(attrs.salary < 25000) {
+                return 'Salary too low.';
+            }
+        },
+        initialize: function() {
+            this.on('change', function() {
+                console.log('Model changed.');
+            });
+            this.on('change:age', function() {
+                console.log('Model::age changed');
+            });
+            this.on('change:salary', function() {
+                console.log('Model::salary changed');
+            });
+            this.on('invalid', function(model, error) {
+                console.log('Model invlid: ' + error);
+            });
+        }
+    });
+    
+    var myModel = new ExampleModel();
+    
+    myModel.set('salary', 29000, {validate: true});
+    myModel.set('age', 20, {validate: true});
+    myModel.set('salary', 21000, {validate: true});
+    myModel.set({age: 29, salary: 21000}, {validate: true});

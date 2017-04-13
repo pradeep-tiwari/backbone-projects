@@ -1,0 +1,30 @@
++-------------------------------------------------------------------------------
+Dependencies
++-------------------------------------------------------------------------------
+
+The only hard dependency is UnderscoreJS. For RESTful persistence and DOM manip-
+ulation, include jQuery.
+
+
++-------------------------------------------------------------------------------
+Versions
++-------------------------------------------------------------------------------
+
+jQuery 3.2,
+UnderscoreJS 1.8.3
+BackboneJS 1.3.3
+
++-------------------------------------------------------------------------------
+Overview
++-------------------------------------------------------------------------------
+
+BackboneJS consists of five main objects:
+
+Models, Collections, Views, Routers, Events
+
++-------------------------------------------------------------------------------
+that & this
++-------------------------------------------------------------------------------
+
+Note that even Backbone suffers from context issues. Often you will find that
+Backbone application store current context is self or that.

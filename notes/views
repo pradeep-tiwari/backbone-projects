@@ -1,0 +1,143 @@
+--> This initializes a Backbone view:
+
+    var ExampleView = Backbone.View.extend({
+        initialize: function() {
+            console.log('View created');
+        }
+    });
+    
+    new ExampleView();
+    
+--> We can pass additional options object:
+
+    var ExampleModel = Backbone.Model.extend({
+        defaults: {
+            count: 0
+        }
+    });
+
+    var ExampleView = Backbone.View.extend({
+        initialize: function() {
+            console.log(this.model.attributes.count);
+        }
+    });
+    
+    new ExampleView({model: new ExampleModel});
+    
+--> We can attach our view object to an HTML view by passing el attribute:
+
+    // <button id="btn">Click Me</button>
+    
+    var ExampleView = Backbone.View.extend({
+        initialize: function() {
+            console.log(this.$el); // [button object]
+            console.log(this.el); // <button id="btn">Click Me</button>
+            console.log(this.$el.html()); // Click Me
+        }
+    });
+    
+    var myView = new ExampleView({
+        el: '#btn'
+    });
+    
+--> In case you do not supply value for el attribute, it simply creates an empty div:
+
+    var ExampleView = Backbone.View.extend({
+        initialize: function() {
+            console.log(this.$el);
+        }
+    });
+    
+    new ExampleView();
+
+--> el attribute can also be created dynamically by passing other attributes:
+
+    var ExampleView = Backbone.View.extend();
+    
+    var myView = new ExampleView({
+        tagName: 'input',
+        className: 'error error-input',
+        id: 'inputEmail',
+        attributes: {'data-value': '@mail'}
+    });
+    
+    myView.el; // <input class="error error-input" data-value="@mail">
+    
+--> What is $el and el?
+
+    el is the HTML DOM element. $el is a jQuery cached object for reuse.
+    
+--> The generated view can be rendered by overriding render() method. Note that there
+    is a convention in Backbone to return current context to allow chained method
+    calls:
+    
+    // <form id="loginForm"></form>
+
+    var ExampleView = Backbone.View.extend({
+        tagName: 'input',
+        className: 'error error-input',
+        id: 'inputEmail',
+        attributes: {'data-value': '@mail'},
+        initialize: function() {
+            this.render();
+        },
+        render: function() {
+            this.el.dataset.name="email";
+            $('#loginForm').html(this.$el);
+            return this;
+        }
+    });
+    
+    var myView = new ExampleView();
+    
+--> We can attach events to our view by specifying a hash of events in the view defi-
+    nition. The format is {'event selector': 'callback'}. However if you omit the
+    selector, the event is attached to the entire view referred by this.el:
+
+    var ExampleView = Backbone.View.extend({
+        tagName: 'button',
+        initialize: function() {
+            this.render();
+        },
+        render: function() {
+            this.$el.html('Click Me');
+            $('#loginDiv').html(this.$el);
+            return this;
+        },
+        events: {
+            'click': function() {
+                console.log('I got clicked');
+            }
+        }
+    });
+    
+    var myView = new ExampleView();
+    
+--> To define events individually to each instance, use delegateEvents() method:
+
+    myView.delegateEvents({'click': function() {
+        // some code
+    }});
+    
+--> To remove all attached events, pass an empty events hash to delegateEvents()
+    method or call undelegateEvents():
+    
+    myView.undelegateEvents();
+    
+--> In case you need to switch the DOM element that the event is bound to, call the
+    setElement() method:
+    
+    myView.setElement('selector');
+    
+--> To find a subelement within the view, use $el.find('selector') or simply you
+    can do $('selector').
+    
+--> To remove the view from the DOM completely:
+
+    myView.remove();
+    
+--> To pass a collection, do this:
+
+    var myView = new ExampleView({
+        collection: new ExampleCollection()
+    });

@@ -1,0 +1,78 @@
+--> Front end routing is what makes a SPA. You create it as follow:
+
+    var ExampleRouter = Backbone.Router.extend({
+        routes: {
+            // domain/#hi
+            'hi': 'sayHi',
+            
+            // domain/#hello/pradeep
+            'hello/:name': 'greet',
+            
+            // domain/#hello/pradeep/id7
+            'hello/:name/id:num': 'greet',
+            
+            // domain/#anything-here
+            '*hash': 'anything'
+        },
+        sayHi: function() {
+            console.log('Hi');
+        },
+        greet: function(name, id) {
+            if(id) {
+                console.log('Name: ' + name + ', ID: ' + id);
+            } else {
+                console.log('Hello ' + name);
+            }
+        },
+        anything: function(hash) {
+            console.log(hash);
+        }
+    });
+    
+    new ExampleRouter();
+    
+    // start hash change monitoring, use this after all routes are configured
+    Backbone.history.start();
+    
+--> There are two Router object APIs: route() & navigate(). The first one creates a
+    custom route, while the later one update the URL and adds it to the browser his-
+    tory.
+    
+--> This is an example of route() API. It takes three parameters, the custom route
+    string, callback to trigger, and an optional callback function.
+    
+    var ExampleRouter = Backbone.Router.extend({
+        routes: { 'hi': 'greet' },
+        greet: function(name) {
+            if(name) {
+                console.log('Hi ' + name);
+            } else {
+                console.log('Hi');
+            }    
+        }
+    });
+    
+    var myRouter = new ExampleRouter();
+    Backbone.history.start();
+    
+    myRouter.route('hi/:name', 'greet');
+    
+--> This is an example of navigate() API. It takes a URL and an options object:
+
+    var ExampleRouter = Backbone.Router.extend({
+        routes: { 'hello': 'greet' },
+        'greet': function() {
+            console.log('hello');
+        }
+    });
+    
+    var myRouter = new ExampleRouter();
+    
+    Backbone.history.start();
+    
+    myRouter.navigate('hello', {trigger: true});
+
+    
+--> Note that we do need to start monitoring hash change. This starts history manage-
+    ment by monitoring "hashChange" event. However, it can accept an options object
+    to determine how to use the browser history.

@@ -1,0 +1,35 @@
+--> A collection object represents a set of models. Note that when instantiating
+    a model, we assigned it an id.
+
+    var ExampleModel = Backbone.Model.extend({
+        defaults: { hashId: '#000' }
+    });
+    
+    var ExampleCollection = Backbone.Collection.extend({ model: ExampleModel });
+    
+    var myModel1 = new ExampleModel({ hashId: '#001', id: 1 });
+    var myModel2 = new ExampleModel({ hashId: '#002', id: 2 });
+    var myModel3 = new ExampleModel({ hashId: '#003', id: 3 });
+    
+    var myCollection = new ExampleCollection([myModel1, myModel2]);
+    myCollection.add(myModel3);
+    myCollection.length; // 3
+    myCollection.get(1) === myModel2; // true
+
+--> A collection object provides "add", "remove", and "change" events:
+
+    var myCollection = new ExampleCollection();
+    
+    myCollection.on('add', function(model) {
+        console.log('Added Model ID: ' + model.attributes.id);
+    });
+
+    myCollection.on('remove', function(model) {
+        console.log('Removed Model ID: ' + model.attributes.id);
+    });
+
+    myCollection.on('change', function(model) {
+        console.log('Model Changed ID: ' + model.attributes.id);
+    });
+    
+--> Note that many APIs are made available by UnderscoreJS to work with collections.
