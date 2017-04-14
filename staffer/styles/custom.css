@@ -1,0 +1,15 @@
+header h1 {
+    height: 20vh;
+    line-height: 20vh;
+    background: #f0f0f0;
+    text-align: center;
+    font-size: 3rem;
+    font-variant: small-caps;
+}
+.staffTileContainer {
+    margin: 2rem 0;
+    font-size: 1.4rem;
+}
+.staffDetailsHeaders {
+    font-weight: 700;   
+}

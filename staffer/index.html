@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Staffer: BackboneJS based staff management SPA.</title>
+        
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+        <link rel="stylesheet" href="styles/ionicons/ionicons.min.css">
+        <link rel="stylesheet" href="styles/bricks.css">
+        <link rel="stylesheet" href="styles/custom.css">
+        
+        <!-- data-main attribute tells require.js to load
+             scripts/app.js after require.js loads. -->
+        <script data-main="scripts/app" src="scripts/lib/require.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>
+                <i class="ion-android-happy"></i> Staffer
+            </h1>
+        </header>
+        
+        <div class="wrapper">
+            <!-- This is the shell for our SPA -->
+            <div id="spa-shell"></div>
+        </div>
+        
+        <script type="text/template" id="staff-tile-template">
+            <div class="staffTileContainer">
+                <div class="staffImage">
+                    <img src="<%- imgUrl %>" alt="Staff Image">
+                </div>
+                <a id="<%- id %>" class="more-details" href="#/details/<%- id %>"></a>
+                <div class="staffDetails">
+                    <span class="staffDetailsHeaders">Name:</span>
+                    <%- firstName %>
+                    <%- lastName %>
+                </div>
+                <div class="staffDetails">
+                    <span class="staffDetailsHeaders">Description:</span>
+                    <%- description %>
+                </div>
+            </div>
+        </script>
+    </body>
+</html>
