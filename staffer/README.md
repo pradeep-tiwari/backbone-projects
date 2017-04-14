@@ -4,9 +4,9 @@
 
 **Project Description:** This project consists of three pages.
 
-'/': List all staffs.
-'/create': Create a new staff.
-'/edit': Edit an existing staff.
+- '/': List all staffs.
+- '/create': Create a new staff.
+- '/edit': Edit an existing staff.
 
 **Project Folders:**
 
