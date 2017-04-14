@@ -1,0 +1,22 @@
+Project Name: Staffer
+
+Project Blurb: BackboneJS based SPA for staff management.
+
+Project Description: This project consists of three pages.
+
+'/': List all staffs.
+'/create': Create a new staff.
+'/edit': Edit an existing staff.
+
+Project Folders:
+
+staffer
+    |--- styles
+    |--- images
+    |--- scripts
+            |--- lib
+            |--- views
+            |--- models
+            |--- routers
+            |--- components
+            |--- collections
