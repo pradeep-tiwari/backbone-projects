@@ -3,5 +3,5 @@
 #### Project Blurb: 
 Phonebook entry manager app.
 
-####Project Description:
+#### Project Description:
 This is a simple web app for adding/removing phonebook entries.
