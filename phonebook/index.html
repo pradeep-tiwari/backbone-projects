@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Phonebook: BackboneJS based phonebook app.</title>
+        
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+        <link rel="stylesheet" href="styles/ionicons/ionicons.min.css">
+        <link rel="stylesheet" href="styles/bricks.css">
+        <link rel="stylesheet" href="styles/custom.css">
+        
+        <!-- data-main attribute tells require.js to load
+             scripts/app.js after require.js loads. -->
+        <script data-main="scripts/app" src="scripts/lib/require.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>
+                <i class="ion-iphone"></i> Phonebook
+            </h1>
+        </header>
+        
+        <div class="wrapper">
+            <div class="row">
+                <div class="col m12 t4">
+                    <form id="entryForm">
+                        <div class="form-field">
+                            <label for="firstName">
+                                First Name <span class="error-message"></span>
+                            </label>
+                            <input type="text" name="firstName" id="firstName" class="full-width" placeholder="Your first name">
+                        </div>
+                        <div class="form-field">
+                            <label for="lastName">
+                                Last Name <span class="error-message"></span>
+                            </label>
+                            <input type="text" name="lastName" id="lastName" class="full-width" placeholder="Your last name">
+                        </div>
+                        <div class="form-field">
+                            <label for="phoneNumber">
+                                Phone Number <span class="error-message"></span>
+                            </label>
+                            <input type="text" name="phoneNumber" id="phoneNumber" class="full-width" placeholder="Allowed format: XXX-XXX-XXXX">
+                        </div>
+                        <div class="form-field">
+                            <input type="submit" id="addEntry" class="btn btn-green" value="Add">
+                            <input type="reset" class="btn btn-blue" value="Clear">
+                        </div>
+                    </form>
+                </div>
+                <div class="col m12 t8">
+                    <!--<h5>Phonebook Entries</h5>-->
+                    <table id="entriesTable" class="full-width table-stripped">
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Phone</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--<tr>
+                                <td>First Name</td>
+                                <td>Last Name</td>
+                                <td>Phone</td>
+                                <td><button class="btn btn-red">&times;</button></td>
+                            </tr>-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <script type="text/template" id="newEntryTemplate">
+            <tr>
+                <td><%- firstName %></td>
+                <td><L><%- lastName %></td>
+                <td><%- phoneNumber %></td>
+                <td><button class="btn btn-red removeEntry">&times;</button></td>
+            </tr>
+        </script>
+    </body>
+</html>
